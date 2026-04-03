@@ -13,7 +13,7 @@ function RootComponent() {
   return (
     <>
       <Navbar />
-      <main className="app-content cds--content">
+      <main className="app-content">
         <Outlet />
       </main>
       <TanStackDevtools

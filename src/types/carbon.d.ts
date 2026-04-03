@@ -10,6 +10,7 @@ declare module "react" {
       "cds-header-name": CarbonEl;
       "cds-header-nav": CarbonEl;
       "cds-header-nav-item": CarbonEl;
+      "cds-header-side-nav-items": CarbonEl;
       "cds-header-menu": CarbonEl;
       "cds-header-menu-item": CarbonEl;
       "cds-side-nav": CarbonEl;
@@ -24,6 +25,8 @@ declare module "react" {
       "cds-table-body": CarbonEl;
       "cds-table-row": CarbonEl;
       "cds-table-cell": CarbonEl;
+      "cds-date-picker": CarbonEl;
+      "cds-date-picker-input": CarbonEl;
     }
   }
 }
