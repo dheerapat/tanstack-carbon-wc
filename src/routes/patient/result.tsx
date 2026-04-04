@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/button/index.js";
 import "@carbon/web-components/es/components/data-table/index.js";
+import "@carbon/web-components/es/components/link/index.js";
 import { Table } from "#/components/Table";
 import {
   createPatientTableRows,
@@ -19,6 +20,7 @@ function RouteComponent() {
   const search = Route.useSearch();
   const results = filterPatients(search);
   const hasSearch = hasPatientSearch(search);
+  const router = useRouter();
 
   const patientTable = {
     headers: [
@@ -32,18 +34,27 @@ function RouteComponent() {
       "Nationality",
       "DOB",
     ],
-    rows: createPatientTableRows(results),
+    rows: createPatientTableRows([...results]),
   };
 
   return (
-    <section>
+    <>
       {!hasSearch ? (
         <p className="patient-results__empty">No search criteria provided.</p>
       ) : results.length > 0 ? (
-        <Table table={patientTable} />
+        <Table
+          table={patientTable}
+          rowAction={(row) => {
+            const href = router.buildLocation({
+              to: "/patient/detail",
+              search: { hn: String(row[0]) },
+            }).href;
+            return <cds-link href={href}>View</cds-link>;
+          }}
+        />
       ) : (
         <p className="patient-results__empty">No patients found.</p>
       )}
-    </section>
+    </>
   );
 }

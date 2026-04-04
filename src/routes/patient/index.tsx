@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/button/index.js";
 import "@carbon/web-components/es/components/date-picker/index.js";
 import "@carbon/web-components/es/components/form/index.js";
-import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/text-input/index.js";
-import "@carbon/web-components/es/components/radio-button/index.d.ts";
+import "@carbon/web-components/es/components/radio-button/index.js";
 import { normalizePatientSearch } from "#/features/patientSearch";
 import "../style/patient.scss";
 
@@ -97,7 +96,7 @@ function RouteComponent() {
   }
 
   return (
-    <section>
+    <>
       <cds-form className="patient-form" id="patient-search-form">
         <div className="patient-form__grid">
           <div className="patient-form__column">
@@ -201,6 +200,6 @@ function RouteComponent() {
           </cds-button>
         </div>
       </cds-form>
-    </section>
+    </>
   );
 }

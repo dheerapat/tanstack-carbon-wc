@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 type TableCellValue = string | number;
 
 type TableData = {
@@ -7,9 +9,11 @@ type TableData = {
 
 type TableProps = {
   table: TableData;
+  /** Optional: render an action cell for each row. Receives the row values. */
+  rowAction?: (row: TableCellValue[]) => ReactNode;
 };
 
-export function Table({ table }: TableProps) {
+export function Table({ table, rowAction }: TableProps) {
   return (
     <cds-table>
       <cds-table-head>
@@ -19,6 +23,7 @@ export function Table({ table }: TableProps) {
               {header}
             </cds-table-header-cell>
           ))}
+          {rowAction && <cds-table-header-cell />}
         </cds-table-header-row>
       </cds-table-head>
       <cds-table-body>
@@ -29,6 +34,11 @@ export function Table({ table }: TableProps) {
                 {cell}
               </cds-table-cell>
             ))}
+            {rowAction && (
+              <cds-table-cell key={`action-${rowIndex}`}>
+                {rowAction(row)}
+              </cds-table-cell>
+            )}
           </cds-table-row>
         ))}
       </cds-table-body>

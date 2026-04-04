@@ -140,13 +140,19 @@ export function filterPatients(search: PatientSearchParams) {
   });
 }
 
+export function formatSex(sex: string, short = false): string {
+  if (sex === "male") return short ? "M" : "Male";
+  if (sex === "female") return short ? "F" : "Female";
+  return sex;
+}
+
 export function createPatientTableRows(results: Patient[]) {
   return results.map((patient) => [
     patient.hn,
     patient.name,
     patient.middleName || "-",
     patient.surname,
-    patient.sex,
+    formatSex(patient.sex),
     patient.phoneNumber,
     patient.idPassport,
     patient.nationality,
