@@ -1,0 +1,75 @@
+.patient-form {
+  display: block;
+  box-sizing: border-box;
+  background: var(--cds-layer);
+  padding: 3rem 4.25rem 3rem;
+  min-height: 27.5rem;
+}
+
+.patient-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 6rem;
+  row-gap: 2rem;
+}
+
+.patient-form__column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.patient-form__field,
+.patient-form__date-field {
+  width: 100%;
+}
+
+.patient-form__sex {
+  display: block;
+  padding-top: 0.25rem;
+}
+
+.patient-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 4.5rem;
+}
+
+.patient-form__actions cds-button {
+  min-width: 12.75rem;
+}
+
+@media (max-width: 960px) {
+  .patient-page {
+    padding: 0;
+  }
+
+  .patient-form {
+    padding: 1.5rem;
+  }
+
+  .patient-form__grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .patient-form__actions {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .patient-form {
+    padding: 1rem;
+  }
+
+  .patient-form__actions {
+    flex-direction: column;
+  }
+
+  .patient-form__actions cds-button {
+    width: 100%;
+    min-width: 0;
+  }
+}

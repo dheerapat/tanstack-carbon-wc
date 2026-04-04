@@ -4,15 +4,64 @@ import "@carbon/web-components/es/components/date-picker/index.d.ts";
 import { Table } from "#/components/Table";
 
 const appointmentTable = {
-  headers: ["Name", "Rule", "Status", "Other", "Example"],
+  headers: ["HN", "Name", "Phone", "Care Provider", "Episode ID", "Status"],
   rows: [
-    ["Load Balancer 1", "Round robin", "Starting", "Test", 22],
-    ["Load Balancer 2", "DNS delegation", "Active", "Test", 22],
-    ["Load Balancer 3", "Round robin", "Disabled", "Test", 22],
-    ["Load Balancer 4", "Round robin", "Disabled", "Test", 22],
-    ["Load Balancer 5", "Round robin", "Disabled", "Test", 22],
-    ["Load Balancer 6", "Round robin", "Disabled", "Test", 22],
-    ["Load Balancer 7", "Round robin", "Disabled", "Test", 22],
+    [
+      "HN-100421",
+      "Somchai Srisuk",
+      "081-234-5678",
+      "Dr. Apinya Wongkul",
+      "EP-2024-0088",
+      "Active",
+    ],
+    [
+      "HN-100388",
+      "Nanthipha Charoenwong",
+      "089-456-7890",
+      "Dr. Teerawat Boonchu",
+      "EP-2024-0091",
+      "Scheduled",
+    ],
+    [
+      "HN-100295",
+      "Prasert Limthong",
+      "062-789-0123",
+      "Dr. Apinya Wongkul",
+      "EP-2024-0075",
+      "Completed",
+    ],
+    [
+      "HN-100512",
+      "Kanjana Phetcharoen",
+      "092-345-6789",
+      "Dr. Siriporn Nakorn",
+      "EP-2024-0102",
+      "Pending",
+    ],
+    [
+      "HN-100340",
+      "Wichai Duangrat",
+      "064-901-2345",
+      "Dr. Teerawat Boonchu",
+      "EP-2024-0083",
+      "Cancelled",
+    ],
+    [
+      "HN-100467",
+      "Malee Thongsuk",
+      "098-567-8901",
+      "Dr. Siriporn Nakorn",
+      "EP-2024-0096",
+      "Scheduled",
+    ],
+    [
+      "HN-100399",
+      "Thanakorn Ruangrit",
+      "085-012-3456",
+      "Dr. Apinya Wongkul",
+      "EP-2024-0079",
+      "Active",
+    ],
   ],
 };
 

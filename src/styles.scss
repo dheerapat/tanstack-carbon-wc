@@ -5,10 +5,19 @@
 
 :root {
   @include theme(themes.$g10);
+  font-family: "IBM Plex Sans Thai", "Google Sans", sans-serif;
 
   /* @media (prefers-color-scheme: dark) {
     @include theme(themes.$g90);
   } */
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 .app-content {

@@ -1,3 +1,4 @@
+import type { CarbonIconDescriptor } from "@carbon/web-components/es-custom/globals/internal/icon-loader-utils.js";
 import type { HTMLAttributes } from "react";
 
 type CarbonEl = HTMLAttributes<HTMLElement> & Record<string, unknown>;
@@ -27,6 +28,24 @@ declare module "react" {
       "cds-table-cell": CarbonEl;
       "cds-date-picker": CarbonEl;
       "cds-date-picker-input": CarbonEl;
+      "cds-form-group": CarbonEl;
+      "cds-text-input": CarbonEl;
+      "cds-stack": CarbonEl;
+      "cds-radio-button-group": CarbonEl;
+      "cds-radio-button": CarbonEl;
+      "cds-form-item": CarbonEl;
+      "cds-button": CarbonEl;
+      "cds-grid": CarbonEl;
+      "cds-column": CarbonEl;
+      "cds-form": CarbonEl;
+      "cds-checkbox": CarbonEl;
+      "cds-number-input": CarbonEl;
+      "cds-file-uploader": CarbonEl;
+      "cds-file-uploader-button": CarbonEl;
+      "cds-search": CarbonEl;
+      "cds-select": CarbonEl;
+      "cds-select-item": CarbonEl;
+      "cds-textarea": CarbonEl;
     }
   }
 }
