@@ -5,13 +5,97 @@ import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/text-input/index.js";
 import "@carbon/web-components/es/components/radio-button/index.d.ts";
-import "./style/patient.scss";
+import { normalizePatientSearch } from "#/features/patientSearch";
+import "../style/patient.scss";
 
-export const Route = createFileRoute("/patient")({
+export const Route = createFileRoute("/patient/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = Route.useNavigate();
+
+  function getInputValue(id: string) {
+    const element = document.getElementById(id) as
+      | (HTMLElement & { value?: string })
+      | null;
+
+    return String(element?.value ?? "").trim();
+  }
+
+  function getSelectedSex() {
+    const maleRadio = document.getElementById("sex-male") as
+      | (HTMLElement & { checked?: boolean })
+      | null;
+    const femaleRadio = document.getElementById("sex-female") as
+      | (HTMLElement & { checked?: boolean })
+      | null;
+
+    if (maleRadio?.checked) {
+      return "male";
+    }
+
+    if (femaleRadio?.checked) {
+      return "female";
+    }
+
+    return "";
+  }
+
+  function handleSearch() {
+    const search = normalizePatientSearch({
+      hn: getInputValue("patient-hn"),
+      name: getInputValue("patient-name"),
+      middleName: getInputValue("patient-middle-name"),
+      surname: getInputValue("patient-surname"),
+      sex: getSelectedSex(),
+      phoneNumber: getInputValue("patient-phone"),
+      idPassport: getInputValue("patient-id-passport"),
+      nationality: getInputValue("patient-nationality"),
+      dob: getInputValue("patient-dob"),
+    });
+
+    navigate({
+      to: "/patient/result",
+      search,
+    });
+  }
+
+  function handleReset() {
+    const inputIds = [
+      "patient-hn",
+      "patient-name",
+      "patient-middle-name",
+      "patient-surname",
+      "patient-phone",
+      "patient-id-passport",
+      "patient-nationality",
+      "patient-dob",
+    ];
+
+    inputIds.forEach((id) => {
+      const element = document.getElementById(id) as
+        | (HTMLElement & { value?: string })
+        | null;
+
+      if (element) {
+        element.value = "";
+      }
+    });
+
+    const radioIds = ["sex-male", "sex-female"];
+
+    radioIds.forEach((id) => {
+      const element = document.getElementById(id) as
+        | (HTMLElement & { checked?: boolean })
+        | null;
+
+      if (element) {
+        element.checked = false;
+      }
+    });
+  }
+
   return (
     <section>
       <cds-form className="patient-form" id="patient-search-form">
@@ -54,7 +138,6 @@ function RouteComponent() {
               legend-text="Sex"
               name="sex"
               orientation="horizontal"
-              value="male"
             >
               <cds-radio-button
                 id="sex-male"
@@ -110,10 +193,10 @@ function RouteComponent() {
         </div>
 
         <div className="patient-form__actions">
-          <cds-button kind="primary" type="submit">
+          <cds-button kind="primary" onClick={handleSearch} type="button">
             Search
           </cds-button>
-          <cds-button kind="secondary" type="reset">
+          <cds-button kind="secondary" onClick={handleReset} type="button">
             Clear
           </cds-button>
         </div>

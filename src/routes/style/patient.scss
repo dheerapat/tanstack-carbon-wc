@@ -40,6 +40,46 @@
   min-width: 12.75rem;
 }
 
+.patient-results {
+  margin-top: 2rem;
+  background: var(--cds-layer);
+  overflow-x: auto;
+}
+
+.patient-results--page {
+  margin-top: 0;
+  padding: 2rem;
+}
+
+.patient-results__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.patient-results__title {
+  margin: 0;
+  font: inherit;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.patient-results__back-link {
+  color: var(--cds-link-primary);
+  text-decoration: none;
+}
+
+.patient-results__back-link:hover {
+  text-decoration: underline;
+}
+
+.patient-results__empty {
+  margin: 0;
+  padding: 1.5rem;
+}
+
 @media (max-width: 960px) {
   .patient-page {
     padding: 0;
@@ -57,6 +97,10 @@
   .patient-form__actions {
     margin-top: 2.5rem;
   }
+
+  .patient-results--page {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -71,5 +115,14 @@
   .patient-form__actions cds-button {
     width: 100%;
     min-width: 0;
+  }
+
+  .patient-results--page {
+    padding: 1rem;
+  }
+
+  .patient-results__header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

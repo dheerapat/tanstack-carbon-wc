@@ -9,18 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PatientRouteImport } from './routes/patient'
 import { Route as AppointmentRouteImport } from './routes/appointment'
+import { Route as PatientRouteRouteImport } from './routes/patient/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PatientIndexRouteImport } from './routes/patient/index'
+import { Route as PatientResultRouteImport } from './routes/patient/result'
 
-const PatientRoute = PatientRouteImport.update({
-  id: '/patient',
-  path: '/patient',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppointmentRoute = AppointmentRouteImport.update({
   id: '/appointment',
   path: '/appointment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientRouteRoute = PatientRouteRouteImport.update({
+  id: '/patient',
+  path: '/patient',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -28,51 +30,72 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatientIndexRoute = PatientIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PatientRouteRoute,
+} as any)
+const PatientResultRoute = PatientResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => PatientRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/patient': typeof PatientRouteRouteWithChildren
   '/appointment': typeof AppointmentRoute
-  '/patient': typeof PatientRoute
+  '/patient/result': typeof PatientResultRoute
+  '/patient/': typeof PatientIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/appointment': typeof AppointmentRoute
-  '/patient': typeof PatientRoute
+  '/patient/result': typeof PatientResultRoute
+  '/patient': typeof PatientIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/patient': typeof PatientRouteRouteWithChildren
   '/appointment': typeof AppointmentRoute
-  '/patient': typeof PatientRoute
+  '/patient/result': typeof PatientResultRoute
+  '/patient/': typeof PatientIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/appointment' | '/patient'
+  fullPaths: '/' | '/patient' | '/appointment' | '/patient/result' | '/patient/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/appointment' | '/patient'
-  id: '__root__' | '/' | '/appointment' | '/patient'
+  to: '/' | '/appointment' | '/patient/result' | '/patient'
+  id:
+    | '__root__'
+    | '/'
+    | '/patient'
+    | '/appointment'
+    | '/patient/result'
+    | '/patient/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PatientRouteRoute: typeof PatientRouteRouteWithChildren
   AppointmentRoute: typeof AppointmentRoute
-  PatientRoute: typeof PatientRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/patient': {
-      id: '/patient'
-      path: '/patient'
-      fullPath: '/patient'
-      preLoaderRoute: typeof PatientRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/appointment': {
       id: '/appointment'
       path: '/appointment'
       fullPath: '/appointment'
       preLoaderRoute: typeof AppointmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patient': {
+      id: '/patient'
+      path: '/patient'
+      fullPath: '/patient'
+      preLoaderRoute: typeof PatientRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -82,13 +105,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patient/': {
+      id: '/patient/'
+      path: '/'
+      fullPath: '/patient/'
+      preLoaderRoute: typeof PatientIndexRouteImport
+      parentRoute: typeof PatientRouteRoute
+    }
+    '/patient/result': {
+      id: '/patient/result'
+      path: '/result'
+      fullPath: '/patient/result'
+      preLoaderRoute: typeof PatientResultRouteImport
+      parentRoute: typeof PatientRouteRoute
+    }
   }
 }
 
+interface PatientRouteRouteChildren {
+  PatientResultRoute: typeof PatientResultRoute
+  PatientIndexRoute: typeof PatientIndexRoute
+}
+
+const PatientRouteRouteChildren: PatientRouteRouteChildren = {
+  PatientResultRoute: PatientResultRoute,
+  PatientIndexRoute: PatientIndexRoute,
+}
+
+const PatientRouteRouteWithChildren = PatientRouteRoute._addFileChildren(
+  PatientRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PatientRouteRoute: PatientRouteRouteWithChildren,
   AppointmentRoute: AppointmentRoute,
-  PatientRoute: PatientRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
