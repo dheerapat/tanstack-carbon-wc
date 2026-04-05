@@ -1,7 +1,9 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import "@carbon/web-components/es/components/button/index.js";
-import "@carbon/web-components/es/components/data-table/index.js";
-import "@carbon/web-components/es/components/link/index.js";
+import "@carbon/web-components/es/components/button/index.d.ts";
+import "@carbon/web-components/es/components/data-table/index.d.ts";
+import "@carbon/web-components/es/components/link/index.d.ts";
+import "@carbon/web-components/es/components/heading/index.d.ts";
+import { Add, Launch, Return } from "@carbon/icons-react";
 import { Table } from "#/components/Table";
 import {
   createPatientTableRows,
@@ -40,7 +42,14 @@ function RouteComponent() {
   return (
     <>
       {!hasSearch ? (
-        <p className="patient-results__empty">No search criteria provided.</p>
+        <cds-tile>
+          <br></br>
+          <cds-heading>No search criteria provided</cds-heading>
+          <br></br>
+          <cds-link href="/patient">
+            Back <Return slot="icon" />
+          </cds-link>
+        </cds-tile>
       ) : results.length > 0 ? (
         <Table
           table={patientTable}
@@ -49,11 +58,23 @@ function RouteComponent() {
               to: "/patient/detail",
               search: { hn: String(row[0]) },
             }).href;
-            return <cds-link href={href}>View</cds-link>;
+            return (
+              <cds-link href={href}>
+                View <Launch slot="icon" />
+              </cds-link>
+            );
           }}
         />
       ) : (
-        <p className="patient-results__empty">No patients found.</p>
+        <cds-tile>
+          <br></br>
+          <cds-heading>No patient found</cds-heading>
+          <br></br>
+          <cds-button>
+            Register
+            <Add slot="icon" />
+          </cds-button>
+        </cds-tile>
       )}
     </>
   );

@@ -132,6 +132,7 @@ function RouteComponent() {
               legend-text="Sex"
               name="sex"
               orientation="horizontal"
+              label-position="right"
             >
               <cds-radio-button
                 id="sex-male"
@@ -169,7 +170,7 @@ function RouteComponent() {
                 kind="single"
                 label-text="DOB"
                 name="dob"
-                placeholder="dd/mm/yyyy"
+                placeholder="DD/MM/YYYY"
                 size="md"
               ></cds-date-picker-input>
             </cds-date-picker>

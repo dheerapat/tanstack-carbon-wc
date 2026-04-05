@@ -49,6 +49,7 @@ declare module "react" {
       "cds-tile": CarbonEl;
       "cds-link": CarbonEl;
       "cds-button-set": CarbonEl;
+      "cds-heading": CarbonEl;
     }
   }
 }
