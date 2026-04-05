@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import "@carbon/web-components/es/components/data-table/index.js";
 import "@carbon/web-components/es/components/date-picker/index.d.ts";
 import { Table } from "#/components/Table";
 import {

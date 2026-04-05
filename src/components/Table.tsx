@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import "@carbon/web-components/es/components/data-table/index.js";
 
 type TableCellValue = string | number;
 
@@ -9,7 +10,6 @@ type TableData = {
 
 type TableProps = {
   table: TableData;
-  /** Optional: render an action cell for each row. Receives the row values. */
   rowAction?: (row: TableCellValue[]) => ReactNode;
 };
 
