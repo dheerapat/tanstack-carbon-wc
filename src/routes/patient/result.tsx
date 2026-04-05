@@ -28,12 +28,10 @@ function RouteComponent() {
     headers: [
       "HN",
       "Name",
-      "Middle name",
       "Surname",
       "Sex",
       "Phone number",
       "ID/Passport",
-      "Nationality",
       "DOB",
     ],
     rows: createPatientTableRows([...results]),

@@ -24,7 +24,7 @@ function RouteComponent() {
     );
   }
 
-  const fullName = [patient.name, patient.middleName, patient.surname]
+  const fullName = [patient.name, patient.surname]
     .filter(Boolean)
     .join(" ");
 

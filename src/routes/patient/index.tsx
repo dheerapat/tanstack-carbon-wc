@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useRef } from "react";
 import "@carbon/web-components/es/components/button/index.d.ts";
 import "@carbon/web-components/es/components/date-picker/index.d.ts";
 import "@carbon/web-components/es/components/form/index.d.ts";
@@ -8,6 +9,8 @@ import "@carbon/web-components/es/components/grid/index.d.ts";
 import { normalizePatientSearch } from "#/features/patientSearch";
 import "../style/patient.scss";
 
+type InputEl = HTMLElement & { value?: string };
+
 export const Route = createFileRoute("/patient/")({
   component: RouteComponent,
 });
@@ -15,44 +18,27 @@ export const Route = createFileRoute("/patient/")({
 function RouteComponent() {
   const navigate = Route.useNavigate();
 
-  function getInputValue(id: string) {
-    const element = document.getElementById(id) as
-      | (HTMLElement & { value?: string })
-      | null;
+  const hnRef = useRef<InputEl>(null);
+  const nameRef = useRef<InputEl>(null);
+  const surnameRef = useRef<InputEl>(null);
+  const phoneRef = useRef<InputEl>(null);
+  const idPassportRef = useRef<InputEl>(null);
+  const dobRef = useRef<InputEl>(null);
+  const sexGroupRef = useRef<InputEl>(null);
 
-    return String(element?.value ?? "").trim();
-  }
-
-  function getSelectedSex() {
-    const maleRadio = document.getElementById("sex-male") as
-      | (HTMLElement & { checked?: boolean })
-      | null;
-    const femaleRadio = document.getElementById("sex-female") as
-      | (HTMLElement & { checked?: boolean })
-      | null;
-
-    if (maleRadio?.checked) {
-      return "male";
-    }
-
-    if (femaleRadio?.checked) {
-      return "female";
-    }
-
-    return "";
+  function getVal(ref: React.RefObject<InputEl | null>) {
+    return String(ref.current?.value ?? "").trim();
   }
 
   function handleSearch() {
     const search = normalizePatientSearch({
-      hn: getInputValue("patient-hn"),
-      name: getInputValue("patient-name"),
-      middleName: getInputValue("patient-middle-name"),
-      surname: getInputValue("patient-surname"),
-      sex: getSelectedSex(),
-      phoneNumber: getInputValue("patient-phone"),
-      idPassport: getInputValue("patient-id-passport"),
-      nationality: getInputValue("patient-nationality"),
-      dob: getInputValue("patient-dob"),
+      hn: getVal(hnRef),
+      name: getVal(nameRef),
+      surname: getVal(surnameRef),
+      sex: getVal(sexGroupRef),
+      phoneNumber: getVal(phoneRef),
+      idPassport: getVal(idPassportRef),
+      dob: getVal(dobRef),
     });
 
     navigate({
@@ -62,37 +48,18 @@ function RouteComponent() {
   }
 
   function handleReset() {
-    const inputIds = [
-      "patient-hn",
-      "patient-name",
-      "patient-middle-name",
-      "patient-surname",
-      "patient-phone",
-      "patient-id-passport",
-      "patient-nationality",
-      "patient-dob",
+    const refs = [
+      hnRef,
+      nameRef,
+      surnameRef,
+      phoneRef,
+      idPassportRef,
+      dobRef,
+      sexGroupRef,
     ];
 
-    inputIds.forEach((id) => {
-      const element = document.getElementById(id) as
-        | (HTMLElement & { value?: string })
-        | null;
-
-      if (element) {
-        element.value = "";
-      }
-    });
-
-    const radioIds = ["sex-male", "sex-female"];
-
-    radioIds.forEach((id) => {
-      const element = document.getElementById(id) as
-        | (HTMLElement & { checked?: boolean })
-        | null;
-
-      if (element) {
-        element.checked = false;
-      }
+    refs.forEach((ref) => {
+      if (ref.current) ref.current.value = "";
     });
   }
 
@@ -108,39 +75,38 @@ function RouteComponent() {
         <cds-grid>
           <cds-column lg="8">
             <cds-text-input
-              id="patient-hn"
+              ref={hnRef}
               label="HN"
               name="hn"
               placeholder="HN"
             ></cds-text-input>
             <br></br>
             <cds-text-input
-              id="patient-name"
+              ref={nameRef}
               label="Name"
               name="name"
               placeholder="Name"
             ></cds-text-input>
             <br></br>
             <cds-text-input
-              id="patient-surname"
+              ref={surnameRef}
               label="Surname"
               name="surname"
               placeholder="Surname"
             ></cds-text-input>
             <br></br>
             <cds-radio-button-group
+              ref={sexGroupRef}
               legend-text="Sex"
               name="sex"
               orientation="horizontal"
               label-position="right"
             >
               <cds-radio-button
-                id="sex-male"
                 label-text="Male"
                 value="male"
               ></cds-radio-button>
               <cds-radio-button
-                id="sex-female"
                 label-text="Female"
                 value="female"
               ></cds-radio-button>
@@ -149,16 +115,16 @@ function RouteComponent() {
 
           <cds-column lg="8">
             <cds-text-input
+              ref={phoneRef}
               className="patient-form__field"
-              id="patient-phone"
               label="Phone number"
               name="phoneNumber"
               placeholder="Phone number"
             ></cds-text-input>
             <br></br>
             <cds-text-input
+              ref={idPassportRef}
               className="patient-form__field"
-              id="patient-id-passport"
               label="ID/Passport"
               name="idPassport"
               placeholder="ID/Passport"
@@ -166,7 +132,7 @@ function RouteComponent() {
             <br></br>
             <cds-date-picker allow-input="true" date-format="d/m/Y">
               <cds-date-picker-input
-                id="patient-dob"
+                ref={dobRef}
                 kind="single"
                 label-text="DOB"
                 name="dob"
