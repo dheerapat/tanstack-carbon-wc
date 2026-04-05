@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import "@carbon/web-components/es/components/button/index.js";
-import "@carbon/web-components/es/components/date-picker/index.js";
-import "@carbon/web-components/es/components/form/index.js";
-import "@carbon/web-components/es/components/text-input/index.js";
-import "@carbon/web-components/es/components/radio-button/index.js";
+import "@carbon/web-components/es/components/button/index.d.ts";
+import "@carbon/web-components/es/components/date-picker/index.d.ts";
+import "@carbon/web-components/es/components/form/index.d.ts";
+import "@carbon/web-components/es/components/text-input/index.d.ts";
+import "@carbon/web-components/es/components/radio-button/index.d.ts";
+import "@carbon/web-components/es/components/grid/index.d.ts";
 import { normalizePatientSearch } from "#/features/patientSearch";
 import "../style/patient.scss";
 
@@ -97,43 +98,37 @@ function RouteComponent() {
 
   return (
     <>
-      <cds-form className="patient-form" id="patient-search-form">
-        <div className="patient-form__grid">
-          <div className="patient-form__column">
+      <cds-form
+        className="patient-form"
+        id="patient-search-form"
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === "Enter") handleSearch();
+        }}
+      >
+        <cds-grid>
+          <cds-column lg="8">
             <cds-text-input
-              className="patient-form__field"
               id="patient-hn"
               label="HN"
               name="hn"
               placeholder="HN"
             ></cds-text-input>
-
+            <br></br>
             <cds-text-input
-              className="patient-form__field"
               id="patient-name"
               label="Name"
               name="name"
               placeholder="Name"
             ></cds-text-input>
-
+            <br></br>
             <cds-text-input
-              className="patient-form__field"
-              id="patient-middle-name"
-              label="Middle name"
-              name="middleName"
-              placeholder="Middle name"
-            ></cds-text-input>
-
-            <cds-text-input
-              className="patient-form__field"
               id="patient-surname"
               label="Surname"
               name="surname"
               placeholder="Surname"
             ></cds-text-input>
-
+            <br></br>
             <cds-radio-button-group
-              className="patient-form__sex"
               legend-text="Sex"
               name="sex"
               orientation="horizontal"
@@ -149,9 +144,9 @@ function RouteComponent() {
                 value="female"
               ></cds-radio-button>
             </cds-radio-button-group>
-          </div>
+          </cds-column>
 
-          <div className="patient-form__column">
+          <cds-column lg="8">
             <cds-text-input
               className="patient-form__field"
               id="patient-phone"
@@ -159,7 +154,7 @@ function RouteComponent() {
               name="phoneNumber"
               placeholder="Phone number"
             ></cds-text-input>
-
+            <br></br>
             <cds-text-input
               className="patient-form__field"
               id="patient-id-passport"
@@ -167,38 +162,28 @@ function RouteComponent() {
               name="idPassport"
               placeholder="ID/Passport"
             ></cds-text-input>
+            <br></br>
+            <cds-date-picker allow-input="true" date-format="d/m/Y">
+              <cds-date-picker-input
+                id="patient-dob"
+                kind="single"
+                label-text="DOB"
+                name="dob"
+                placeholder="dd/mm/yyyy"
+                size="md"
+              ></cds-date-picker-input>
+            </cds-date-picker>
+          </cds-column>
+        </cds-grid>
 
-            <cds-text-input
-              className="patient-form__field"
-              id="patient-nationality"
-              label="Nationality"
-              name="nationality"
-              placeholder="Nationality"
-            ></cds-text-input>
-
-            <div className="patient-form__field patient-form__date-field">
-              <cds-date-picker allow-input="true" date-format="d/m/Y">
-                <cds-date-picker-input
-                  id="patient-dob"
-                  kind="single"
-                  label-text="DOB"
-                  name="dob"
-                  placeholder="dd/mm/yyyy"
-                  size="md"
-                ></cds-date-picker-input>
-              </cds-date-picker>
-            </div>
-          </div>
-        </div>
-
-        <div className="patient-form__actions">
-          <cds-button kind="primary" onClick={handleSearch} type="button">
-            Search
-          </cds-button>
-          <cds-button kind="secondary" onClick={handleReset} type="button">
+        <cds-button-set>
+          <cds-button kind="secondary" onClick={handleReset}>
             Clear
           </cds-button>
-        </div>
+          <cds-button kind="primary" onClick={handleSearch}>
+            Search
+          </cds-button>
+        </cds-button-set>
       </cds-form>
     </>
   );

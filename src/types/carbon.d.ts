@@ -48,6 +48,7 @@ declare module "react" {
       "cds-textarea": CarbonEl;
       "cds-tile": CarbonEl;
       "cds-link": CarbonEl;
+      "cds-button-set": CarbonEl;
     }
   }
 }
