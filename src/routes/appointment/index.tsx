@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/date-picker/index.js";
+import "@carbon/web-components/es/components/heading/index.js";
 import { Table } from "#/components/Table";
 import {
   appointments,
@@ -24,6 +25,8 @@ function RouteComponent() {
 
   return (
     <>
+      <cds-heading>Appointment</cds-heading>
+      <br></br>
       <cds-date-picker
         allow-input="true"
         close-on-select="true"

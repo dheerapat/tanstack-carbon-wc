@@ -48,20 +48,24 @@ function RouteComponent() {
           </cds-link>
         </cds-tile>
       ) : results.length > 0 ? (
-        <Table
-          table={patientTable}
-          rowAction={(row) => {
-            const href = router.buildLocation({
-              to: "/patient/detail",
-              search: { hn: String(row[0]) },
-            }).href;
-            return (
-              <cds-link href={href}>
-                View <Launch slot="icon" />
-              </cds-link>
-            );
-          }}
-        />
+        <>
+          <cds-heading>Patients List</cds-heading>
+          <br></br>
+          <Table
+            table={patientTable}
+            rowAction={(row) => {
+              const href = router.buildLocation({
+                to: "/patient/detail",
+                search: { hn: String(row[0]) },
+              }).href;
+              return (
+                <cds-link href={href}>
+                  View <Launch slot="icon" />
+                </cds-link>
+              );
+            }}
+          />
+        </>
       ) : (
         <cds-tile>
           <br></br>

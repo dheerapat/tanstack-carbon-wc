@@ -65,6 +65,8 @@ function RouteComponent() {
 
   return (
     <>
+      <cds-heading>Patient Search</cds-heading>
+      <br></br>
       <cds-form
         className="patient-form"
         id="patient-search-form"
