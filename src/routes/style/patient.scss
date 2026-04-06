@@ -1,8 +1,10 @@
+@use "@carbon/styles/scss/type";
+
 .patient-form {
   display: block;
   box-sizing: border-box;
   background: var(--cds-layer);
-  padding: 3rem 4.25rem 3rem;
+  padding: var(--cds-spacing-09) var(--cds-spacing-10) var(--cds-spacing-09);
   min-height: 27.5rem;
 }
 
@@ -12,29 +14,28 @@
 }
 
 .patient-results {
-  margin-top: 2rem;
+  margin-top: var(--cds-spacing-07);
   background: var(--cds-layer);
   overflow-x: auto;
 }
 
 .patient-results--page {
   margin-top: 0;
-  padding: 2rem;
+  padding: var(--cds-spacing-07);
 }
 
 .patient-results__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--cds-spacing-05);
+  margin-bottom: var(--cds-spacing-05);
 }
 
 .patient-results__title {
   margin: 0;
   font: inherit;
-  font-size: 1.75rem;
-  font-weight: 600;
+  @include type.type-style("productive-heading-03");
 }
 
 .patient-results__back-link {
@@ -48,20 +49,18 @@
 
 .patient-results__empty {
   margin: 0;
-  padding: 1.5rem;
+  padding: var(--cds-spacing-05);
 }
 
-/* Patient detail tile */
 .patient-detail__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 2rem;
+  column-gap: var(--cds-spacing-07);
 }
 
 .patient-detail__label {
-  margin: 0 0 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  margin: 0 0 var(--cds-spacing-02);
+  @include type.type-style("label-01");
   color: var(--cds-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -69,14 +68,14 @@
 
 .patient-detail__value {
   margin: 0;
-  font-size: 0.875rem;
+  @include type.type-style("body-short-01");
   color: var(--cds-text-primary);
 }
 
 @media (max-width: 640px) {
   .patient-detail__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 1.25rem;
+    row-gap: var(--cds-spacing-05);
   }
 }
 
@@ -86,21 +85,21 @@
   }
 
   .patient-form {
-    padding: 1.5rem;
+    padding: var(--cds-spacing-05);
   }
 
   .patient-results--page {
-    padding: 1.5rem;
+    padding: var(--cds-spacing-05);
   }
 }
 
 @media (max-width: 640px) {
   .patient-form {
-    padding: 1rem;
+    padding: var(--cds-spacing-03);
   }
 
   .patient-results--page {
-    padding: 1rem;
+    padding: var(--cds-spacing-03);
   }
 
   .patient-results__header {

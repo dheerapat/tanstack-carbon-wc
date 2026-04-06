@@ -113,13 +113,14 @@ Shared components must be:
 
 ### Carbon Web Components
 
-Import Carbon WC components **at the route or feature level**, not inside shared components in `src/components/`. This keeps shared components framework-agnostic and avoids redundant imports.
+Import Carbon WC components **inside the shared component that uses them** (e.g. `Table.tsx` imports `data-table`). This co-locates the registration with the component that renders it, so routes don't need to know which custom elements a component depends on. Only import Carbon WC at the route level for elements used directly in route JSX (e.g. forms, tiles, date pickers).
 
 ```tsx
-// ✅ In a route file
+// ✅ Inside src/components/Table.tsx
 import "@carbon/web-components/es/components/data-table/index.js";
 
-// ❌ Not inside src/components/Table.tsx
+// ✅ Inside a route file (for elements used directly in that route)
+import "@carbon/web-components/es/components/date-picker/index.js";
 ```
 
 When you need a Carbon WC element in JSX, its type must be declared in `src/types/carbon.d.ts`.
@@ -310,8 +311,8 @@ import { Table } from "../../components/Table";
 
 | ✅ Do                                          | ❌ Don't                                             |
 | ---------------------------------------------- | ---------------------------------------------------- |
-| Import Carbon WC modules at the route level    | Import Carbon WC inside shared components            |
-| Keep `src/components/` generic and prop-driven | Put domain logic or data access in shared components |
+| Import Carbon WC inside shared components that render them | Duplicate Carbon WC imports across every route that uses a component |
+| Keep `src/components/` generic and prop-driven             | Put domain logic or data access in shared components                 |
 | Declare new `cds-*` elements in `carbon.d.ts`  | Use `// @ts-ignore` on Carbon elements               |
 
 ### Data

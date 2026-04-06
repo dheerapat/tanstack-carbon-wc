@@ -1,8 +1,7 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import "@carbon/web-components/es/components/button/index.d.ts";
-import "@carbon/web-components/es/components/data-table/index.d.ts";
-import "@carbon/web-components/es/components/link/index.d.ts";
-import "@carbon/web-components/es/components/heading/index.d.ts";
+import "@carbon/web-components/es/components/button/index.js";
+import "@carbon/web-components/es/components/link/index.js";
+import "@carbon/web-components/es/components/heading/index.js";
 import { Add, Launch, Return } from "@carbon/icons-react";
 import { Table } from "#/components/Table";
 import {

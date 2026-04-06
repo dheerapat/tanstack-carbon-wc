@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
-import "@carbon/web-components/es/components/button/index.d.ts";
-import "@carbon/web-components/es/components/date-picker/index.d.ts";
-import "@carbon/web-components/es/components/form/index.d.ts";
-import "@carbon/web-components/es/components/text-input/index.d.ts";
-import "@carbon/web-components/es/components/radio-button/index.d.ts";
-import "@carbon/web-components/es/components/grid/index.d.ts";
+import "@carbon/web-components/es/components/button/index.js";
+import "@carbon/web-components/es/components/date-picker/index.js";
+import "@carbon/web-components/es/components/form/index.js";
+import "@carbon/web-components/es/components/text-input/index.js";
+import "@carbon/web-components/es/components/radio-button/index.js";
+import "@carbon/web-components/es/components/grid/index.js";
 import { normalizePatientSearch } from "#/features/patientSearch";
 import "../style/patient.scss";
 
