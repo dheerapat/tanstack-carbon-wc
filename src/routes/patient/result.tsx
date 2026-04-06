@@ -10,7 +10,7 @@ import {
   hasPatientSearch,
   normalizePatientSearch,
 } from "#/features/patientSearch";
-import "../style/patient.scss";
+import "#/routes/style/patient.scss";
 
 export const Route = createFileRoute("/patient/result")({
   validateSearch: normalizePatientSearch,

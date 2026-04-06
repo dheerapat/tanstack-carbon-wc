@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/tile/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
 import { filterPatients, formatSex } from "#/features/patientSearch";
-import "../style/patient.scss";
+import "#/routes/style/patient.scss";
 
 export const Route = createFileRoute("/patient/detail")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -24,9 +24,7 @@ function RouteComponent() {
     );
   }
 
-  const fullName = [patient.name, patient.surname]
-    .filter(Boolean)
-    .join(" ");
+  const fullName = [patient.name, patient.surname].filter(Boolean).join(" ");
 
   const fields: { label: string; value: string }[] = [
     { label: "HN", value: patient.hn },

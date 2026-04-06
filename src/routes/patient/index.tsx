@@ -7,7 +7,7 @@ import "@carbon/web-components/es/components/text-input/index.js";
 import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
 import { normalizePatientSearch } from "#/features/patientSearch";
-import "../style/patient.scss";
+import "#/routes/style/patient.scss";
 
 type InputEl = HTMLElement & { value?: string };
 
