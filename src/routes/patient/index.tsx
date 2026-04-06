@@ -67,93 +67,91 @@ function RouteComponent() {
     <>
       <cds-heading>Patient Search</cds-heading>
       <br></br>
-      <cds-form
-        className="patient-form"
-        id="patient-search-form"
-        onKeyDown={(e: React.KeyboardEvent) => {
-          if (e.key === "Enter") handleSearch();
-        }}
-      >
-        <cds-grid>
-          <cds-column lg="8">
-            <cds-text-input
-              ref={hnRef}
-              label="HN"
-              name="hn"
-              placeholder="HN"
-            ></cds-text-input>
-            <br></br>
-            <cds-text-input
-              ref={nameRef}
-              label="Name"
-              name="name"
-              placeholder="Name"
-            ></cds-text-input>
-            <br></br>
-            <cds-text-input
-              ref={surnameRef}
-              label="Surname"
-              name="surname"
-              placeholder="Surname"
-            ></cds-text-input>
-            <br></br>
-            <cds-radio-button-group
-              ref={sexGroupRef}
-              legend-text="Sex"
-              name="sex"
-              orientation="horizontal"
-              label-position="right"
-            >
-              <cds-radio-button
-                label-text="Male"
-                value="male"
-              ></cds-radio-button>
-              <cds-radio-button
-                label-text="Female"
-                value="female"
-              ></cds-radio-button>
-            </cds-radio-button-group>
-          </cds-column>
+      <div className="patient-form">
+        <cds-form
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.key === "Enter") handleSearch();
+          }}
+        >
+          <cds-grid>
+            <cds-column lg="8">
+              <cds-stack gap="3">
+                <cds-text-input
+                  ref={hnRef}
+                  label="HN"
+                  name="hn"
+                  placeholder="HN"
+                ></cds-text-input>
+                <cds-text-input
+                  ref={nameRef}
+                  label="Name"
+                  name="name"
+                  placeholder="Name"
+                ></cds-text-input>
+                <cds-text-input
+                  ref={surnameRef}
+                  label="Surname"
+                  name="surname"
+                  placeholder="Surname"
+                ></cds-text-input>
+                <cds-radio-button-group
+                  ref={sexGroupRef}
+                  legend-text="Sex"
+                  name="sex"
+                  orientation="horizontal"
+                  label-position="right"
+                >
+                  <cds-radio-button
+                    label-text="Male"
+                    value="male"
+                  ></cds-radio-button>
+                  <cds-radio-button
+                    label-text="Female"
+                    value="female"
+                  ></cds-radio-button>
+                </cds-radio-button-group>
+              </cds-stack>
+            </cds-column>
 
-          <cds-column lg="8">
-            <cds-text-input
-              ref={phoneRef}
-              className="patient-form__field"
-              label="Phone number"
-              name="phoneNumber"
-              placeholder="Phone number"
-            ></cds-text-input>
-            <br></br>
-            <cds-text-input
-              ref={idPassportRef}
-              className="patient-form__field"
-              label="ID/Passport"
-              name="idPassport"
-              placeholder="ID/Passport"
-            ></cds-text-input>
-            <br></br>
-            <cds-date-picker allow-input="true" date-format="d/m/Y">
-              <cds-date-picker-input
-                ref={dobRef}
-                kind="single"
-                label-text="DOB"
-                name="dob"
-                placeholder="DD/MM/YYYY"
-                size="md"
-              ></cds-date-picker-input>
-            </cds-date-picker>
-          </cds-column>
-        </cds-grid>
-
-        <cds-button-set>
-          <cds-button kind="secondary" onClick={handleReset}>
-            Clear
-          </cds-button>
-          <cds-button kind="primary" onClick={handleSearch}>
-            Search
-          </cds-button>
-        </cds-button-set>
-      </cds-form>
+            <cds-column lg="8">
+              <cds-stack gap="3">
+                <cds-text-input
+                  ref={phoneRef}
+                  className="patient-form__field"
+                  label="Phone number"
+                  name="phoneNumber"
+                  placeholder="Phone number"
+                ></cds-text-input>
+                <cds-text-input
+                  ref={idPassportRef}
+                  className="patient-form__field"
+                  label="ID/Passport"
+                  name="idPassport"
+                  placeholder="ID/Passport"
+                ></cds-text-input>
+                <cds-date-picker allow-input="true" date-format="d/m/Y">
+                  <cds-date-picker-input
+                    ref={dobRef}
+                    kind="single"
+                    label-text="DOB"
+                    name="dob"
+                    placeholder="DD/MM/YYYY"
+                    size="md"
+                  ></cds-date-picker-input>
+                </cds-date-picker>
+                <cds-button-set>
+                  <cds-button kind="secondary" onClick={handleReset}>
+                    Clear
+                  </cds-button>
+                  <cds-button kind="primary" onClick={handleSearch}>
+                    Search
+                  </cds-button>
+                </cds-button-set>
+              </cds-stack>
+            </cds-column>
+          </cds-grid>
+        </cds-form>
+      </div>
     </>
   );
 }
