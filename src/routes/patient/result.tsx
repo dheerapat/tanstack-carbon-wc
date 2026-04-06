@@ -49,10 +49,9 @@ function RouteComponent() {
         </cds-tile>
       ) : results.length > 0 ? (
         <>
-          <cds-heading>Patients List</cds-heading>
-          <br></br>
           <Table
             table={patientTable}
+            title="Patient Lists"
             rowAction={(row) => {
               const href = router.buildLocation({
                 to: "/patient/detail",

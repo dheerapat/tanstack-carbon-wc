@@ -82,6 +82,19 @@ export const APPOINTMENT_HEADERS = [
   "Status",
 ];
 
+export function filterAppointments(
+  data: Appointment[],
+  query: string,
+): Appointment[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return data;
+  return data.filter((a) =>
+    [a.hn, a.name, a.phone, a.careProvider, a.episodeId, a.status].some(
+      (field) => field.toLowerCase().includes(q),
+    ),
+  );
+}
+
 export function createAppointmentTableRows(data: Appointment[]): string[][] {
   return data.map((a) => [
     a.hn,

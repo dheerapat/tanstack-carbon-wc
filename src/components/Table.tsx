@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import "@carbon/web-components/es/components/data-table/index.js";
 
 type TableCellValue = string | number;
@@ -8,14 +8,41 @@ type TableData = {
   rows: TableCellValue[][];
 };
 
-type TableProps = {
-  table: TableData;
-  rowAction?: (row: TableCellValue[]) => ReactNode;
+type TableToolbar = {
+  searchPlaceholder?: string;
+  onSearch?: (value: string) => void;
+  actions?: ReactNode;
 };
 
-export function Table({ table, rowAction }: TableProps) {
+type TableProps = {
+  table: TableData;
+  title?: string;
+  rowAction?: (row: TableCellValue[]) => ReactNode;
+  toolbar?: TableToolbar;
+};
+
+export function Table({ table, title, rowAction, toolbar }: TableProps) {
   return (
     <cds-table>
+      {title && (
+        <cds-table-header-title slot="title">{title}</cds-table-header-title>
+      )}
+      {toolbar && (
+        <cds-table-toolbar slot="toolbar">
+          <cds-table-toolbar-content>
+            {toolbar.searchPlaceholder !== undefined && (
+              <cds-table-toolbar-search
+                persistent
+                placeholder={toolbar.searchPlaceholder}
+                onInput={(e: React.SyntheticEvent<HTMLElement>) =>
+                  toolbar.onSearch?.((e.target as HTMLInputElement).value)
+                }
+              />
+            )}
+            {toolbar.actions}
+          </cds-table-toolbar-content>
+        </cds-table-toolbar>
+      )}
       <cds-table-head>
         <cds-table-header-row>
           {table.headers.map((header, index) => (

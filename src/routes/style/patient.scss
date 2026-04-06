@@ -10,6 +10,11 @@
   justify-content: flex-end;
 }
 
+.patient-detail {
+  padding: var(--cds-spacing-06) 0;
+  background-color: var(--cds-layer);
+}
+
 .patient-results__empty {
   margin: 0;
   padding: var(--cds-spacing-05);

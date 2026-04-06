@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/date-picker/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
@@ -6,22 +7,25 @@ import {
   appointments,
   APPOINTMENT_HEADERS,
   createAppointmentTableRows,
+  filterAppointments,
 } from "#/features/appointment";
-
-const appointmentTable = {
-  headers: APPOINTMENT_HEADERS,
-  rows: createAppointmentTableRows(appointments),
-};
 
 export const Route = createFileRoute("/appointment/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [query, setQuery] = useState("");
+
   const today = new Date();
   const formattedToday = `${String(today.getDate()).padStart(2, "0")}/${String(
     today.getMonth() + 1,
   ).padStart(2, "0")}/${today.getFullYear()}`;
+
+  const appointmentTable = {
+    headers: APPOINTMENT_HEADERS,
+    rows: createAppointmentTableRows(filterAppointments(appointments, query)),
+  };
 
   return (
     <>
@@ -41,7 +45,14 @@ function RouteComponent() {
         ></cds-date-picker-input>
       </cds-date-picker>
       <br></br>
-      <Table table={appointmentTable} />
+      <Table
+        table={appointmentTable}
+        title="Appointment"
+        toolbar={{
+          searchPlaceholder: "Search appointments",
+          onSearch: setQuery,
+        }}
+      />
     </>
   );
 }

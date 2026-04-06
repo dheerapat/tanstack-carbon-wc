@@ -20,6 +20,11 @@ declare module "react" {
       "cds-side-nav-menu": CarbonEl;
       "cds-side-nav-menu-item": CarbonEl;
       "cds-table": CarbonEl;
+      "cds-table-toolbar": CarbonEl;
+      "cds-table-toolbar-content": CarbonEl;
+      "cds-table-toolbar-search": CarbonEl;
+      "cds-table-header-title": CarbonEl;
+      "cds-table-header-description": CarbonEl;
       "cds-table-head": CarbonEl;
       "cds-table-header-row": CarbonEl;
       "cds-table-header-cell": CarbonEl;
