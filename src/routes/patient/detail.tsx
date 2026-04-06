@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/tile/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
 import "@carbon/web-components/es/components/stack/index.js";
+import "@carbon/web-components/es/components/heading/index.js";
 import "@carbon/web-components/es/components/button/index.js";
 import { filterPatients, formatSex } from "#/features/patientSearch";
 import {
@@ -22,15 +23,20 @@ export const Route = createFileRoute("/patient/detail")({
 
 function RouteComponent() {
   const { hn } = Route.useSearch();
+  const navigate = Route.useNavigate();
   const results = filterPatients({ hn });
   const patient = results[0];
 
   if (!patient) {
     return (
       <cds-tile>
-        <cds-grid condensed>
-          <p className="patient-results__empty">Patient not found.</p>
-        </cds-grid>
+        <br></br>
+        <cds-heading>No patient found</cds-heading>
+        <br></br>
+        <cds-button onClick={() => navigate({ to: "/patient/register" })}>
+          Register
+          <Add slot="icon" />
+        </cds-button>
       </cds-tile>
     );
   }

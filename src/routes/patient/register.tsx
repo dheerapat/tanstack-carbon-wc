@@ -1,38 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import "@carbon/web-components/es/components/button/index.js";
 import "@carbon/web-components/es/components/date-picker/index.js";
 import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/text-input/index.js";
 import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
-import { normalizePatientSearch } from "#/features/patientSearch";
+import "@carbon/web-components/es/components/heading/index.js";
+import "@carbon/web-components/es/components/file-uploader/index.js";
+import { registerPatient } from "#/features/patientSearch";
 import "#/routes/style/patient.scss";
 
 type InputEl = HTMLElement & { value?: string };
 
-export const Route = createFileRoute("/patient/")({
+export const Route = createFileRoute("/patient/register")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const navigate = Route.useNavigate();
+  const [files, setFiles] = useState<File[]>([]);
 
-  const hnRef = useRef<InputEl>(null);
   const nameRef = useRef<InputEl>(null);
   const surnameRef = useRef<InputEl>(null);
   const phoneRef = useRef<InputEl>(null);
   const idPassportRef = useRef<InputEl>(null);
   const dobRef = useRef<InputEl>(null);
   const sexGroupRef = useRef<InputEl>(null);
+  const dropRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = dropRef.current;
+    if (!el) return;
+    const handler = (e: Event) => {
+      const added: File[] = (e as CustomEvent).detail?.addedFiles ?? [];
+      setFiles((prev) => {
+        const existing = new Set(prev.map((f) => f.name));
+        return [...prev, ...added.filter((f) => !existing.has(f.name))];
+      });
+    };
+    el.addEventListener("cds-file-uploader-drop-container-changed", handler);
+    return () =>
+      el.removeEventListener(
+        "cds-file-uploader-drop-container-changed",
+        handler,
+      );
+  }, []);
 
   function getVal(ref: React.RefObject<InputEl | null>) {
     return String(ref.current?.value ?? "").trim();
   }
 
-  function handleSearch() {
-    const search = normalizePatientSearch({
-      hn: getVal(hnRef),
+  function handleRegister() {
+    const patient = registerPatient({
       name: getVal(nameRef),
       surname: getVal(surnameRef),
       sex: getVal(sexGroupRef),
@@ -41,47 +61,22 @@ function RouteComponent() {
       dob: getVal(dobRef),
     });
 
-    navigate({
-      to: "/patient/result",
-      search,
-    });
+    navigate({ to: "/patient/detail", search: { hn: patient.hn } });
   }
 
-  function handleReset() {
-    const refs = [
-      hnRef,
-      nameRef,
-      surnameRef,
-      phoneRef,
-      idPassportRef,
-      dobRef,
-      sexGroupRef,
-    ];
-
-    refs.forEach((ref) => {
-      if (ref.current) ref.current.value = "";
-    });
+  function handleCancel() {
+    navigate({ to: "/patient" });
   }
 
   return (
     <>
-      <cds-heading>Patient Search</cds-heading>
+      <cds-heading>Register Patient</cds-heading>
       <br></br>
       <div className="patient-form">
-        <cds-form
-          onKeyDown={(e: React.KeyboardEvent) => {
-            if (e.key === "Enter") handleSearch();
-          }}
-        >
+        <cds-form>
           <cds-grid>
             <cds-column lg="8">
-              <cds-stack gap="3">
-                <cds-text-input
-                  ref={hnRef}
-                  label="HN"
-                  name="hn"
-                  placeholder="HN"
-                ></cds-text-input>
+              <cds-stack gap="5">
                 <cds-text-input
                   ref={nameRef}
                   label="Name"
@@ -110,21 +105,48 @@ function RouteComponent() {
                     value="female"
                   ></cds-radio-button>
                 </cds-radio-button-group>
+                <cds-file-uploader
+                  label-title="Documents"
+                  label-description="Supported file types are .jpg and .png."
+                  multiple=""
+                >
+                  <cds-file-uploader-drop-container
+                    ref={dropRef}
+                    accept="image/jpeg image/png"
+                  >
+                    Drag and drop files here or click to upload
+                  </cds-file-uploader-drop-container>
+                  {files.map((file) => (
+                    <cds-file-uploader-item
+                      key={file.name}
+                      state="edit"
+                      ref={(el: HTMLElement | null) => {
+                        if (!el) return;
+                        el.addEventListener(
+                          "cds-file-uploader-item-beingdeleted",
+                          () =>
+                            setFiles((prev) => prev.filter((f) => f !== file)),
+                          { once: true },
+                        );
+                      }}
+                    >
+                      {file.name}
+                    </cds-file-uploader-item>
+                  ))}
+                </cds-file-uploader>
               </cds-stack>
             </cds-column>
 
             <cds-column lg="8">
-              <cds-stack gap="3">
+              <cds-stack gap="5">
                 <cds-text-input
                   ref={phoneRef}
-                  className="patient-form__field"
                   label="Phone number"
                   name="phoneNumber"
                   placeholder="Phone number"
                 ></cds-text-input>
                 <cds-text-input
                   ref={idPassportRef}
-                  className="patient-form__field"
                   label="ID/Passport"
                   name="idPassport"
                   placeholder="ID/Passport"
@@ -143,11 +165,11 @@ function RouteComponent() {
             </cds-column>
           </cds-grid>
           <cds-button-set>
-            <cds-button kind="secondary" onClick={handleReset}>
-              Clear
+            <cds-button kind="secondary" onClick={handleCancel}>
+              Cancel
             </cds-button>
-            <cds-button kind="primary" onClick={handleSearch}>
-              Search
+            <cds-button kind="primary" onClick={handleRegister}>
+              Register
             </cds-button>
           </cds-button-set>
         </cds-form>

@@ -1,13 +1,14 @@
 @use "@carbon/styles/scss/type";
 
 .patient-form {
-  padding: var(--cds-spacing-10) 0;
+  padding: var(--cds-spacing-10) var(--cds-spacing-05);
   background-color: var(--cds-layer);
 }
 
 .patient-form cds-button-set {
   display: flex;
   justify-content: flex-end;
+  padding-right: var(--cds-spacing-05);
 }
 
 .patient-detail {

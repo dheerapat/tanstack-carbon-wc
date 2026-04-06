@@ -47,6 +47,8 @@ declare module "react" {
       "cds-number-input": CarbonEl;
       "cds-file-uploader": CarbonEl;
       "cds-file-uploader-button": CarbonEl;
+      "cds-file-uploader-drop-container": CarbonEl;
+      "cds-file-uploader-item": CarbonEl;
       "cds-search": CarbonEl;
       "cds-select": CarbonEl;
       "cds-select-item": CarbonEl;

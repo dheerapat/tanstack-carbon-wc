@@ -22,6 +22,7 @@ function RouteComponent() {
   const results = filterPatients(search);
   const hasSearch = hasPatientSearch(search);
   const router = useRouter();
+  const navigate = Route.useNavigate();
 
   const patientTable = {
     headers: [
@@ -70,7 +71,7 @@ function RouteComponent() {
           <br></br>
           <cds-heading>No patient found</cds-heading>
           <br></br>
-          <cds-button>
+          <cds-button onClick={() => navigate({ to: "/patient/register" })}>
             Register
             <Add slot="icon" />
           </cds-button>

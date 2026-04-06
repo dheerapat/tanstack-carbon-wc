@@ -120,6 +120,21 @@ export function filterPatients(search: PatientSearchParams) {
   });
 }
 
+function generateHN(): string {
+  const max = patients.reduce((acc, p) => {
+    const num = parseInt(p.hn.replace("HN-", ""), 10);
+    return isNaN(num) ? acc : Math.max(acc, num);
+  }, 0);
+  return `HN-${max + 1}`;
+}
+
+// TODO: replace with real API call — HN will be assigned by the backend
+export function registerPatient(data: Omit<Patient, "hn">): Patient {
+  const patient: Patient = { hn: generateHN(), ...data };
+  patients.push(patient);
+  return patient;
+}
+
 export function formatSex(sex: string, short = false): string {
   if (sex === "male") return short ? "M" : "Male";
   if (sex === "female") return short ? "F" : "Female";
