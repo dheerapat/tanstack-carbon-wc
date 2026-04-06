@@ -135,6 +135,36 @@ export function registerPatient(data: Omit<Patient, "hn">): Patient {
   return patient;
 }
 
+type Age = { years: number; months: number; days: number };
+
+/** Parse a dob string in DD/MM/YYYY format and return the age as of today. */
+export function calculateAge(dob: string): Age {
+  const [dd, mm, yyyy] = dob.split("/").map(Number);
+  const birth = new Date(yyyy, mm - 1, dd);
+  const today = new Date();
+
+  let years = today.getFullYear() - birth.getFullYear();
+  let months = today.getMonth() - birth.getMonth();
+  let days = today.getDate() - birth.getDate();
+
+  if (days < 0) {
+    months -= 1;
+    const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return { years, months, days };
+}
+
+export function formatAge(dob: string): string {
+  const { years, months, days } = calculateAge(dob);
+  return `${years}Y${months}M${days}D`;
+}
+
 export function formatSex(sex: string, short = false): string {
   if (sex === "male") return short ? "M" : "Male";
   if (sex === "female") return short ? "F" : "Female";

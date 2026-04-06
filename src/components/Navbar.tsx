@@ -21,12 +21,18 @@ export function Navbar() {
         </cds-header-name>
         <cds-header-nav menu-bar-label="Nutrix">
           <cds-header-nav-item>
-            <Link to="/appointment" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link
+              to="/appointment"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               Appointment
             </Link>
           </cds-header-nav-item>
           <cds-header-nav-item>
-            <Link to="/patient" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link
+              to="/patient"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               Patient
             </Link>
           </cds-header-nav-item>
@@ -43,12 +49,18 @@ export function Navbar() {
       <cds-side-nav aria-label="Side navigation" is-not-persistent="true">
         <cds-header-side-nav-items>
           <cds-side-nav-link>
-            <Link to="/appointment" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link
+              to="/appointment"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               Appointment
             </Link>
           </cds-side-nav-link>
           <cds-side-nav-link>
-            <Link to="/patient" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link
+              to="/patient"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               Patient
             </Link>
           </cds-side-nav-link>

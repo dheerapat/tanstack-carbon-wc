@@ -8,6 +8,7 @@ import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
 import "@carbon/web-components/es/components/file-uploader/index.js";
+import "@carbon/web-components/es/components/stack/index.js";
 import { registerPatient } from "#/features/patientSearch";
 import "#/routes/style/patient.scss";
 

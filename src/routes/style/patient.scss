@@ -11,28 +11,9 @@
   padding-right: var(--cds-spacing-05);
 }
 
-.patient-detail {
-  padding: var(--cds-spacing-06) 0;
-  background-color: var(--cds-layer);
-}
-
 .patient-results__empty {
   margin: 0;
   padding: var(--cds-spacing-05);
-}
-
-.patient-detail__label {
-  margin: 0 0 var(--cds-spacing-02);
-  @include type.type-style("label-01");
-  color: var(--cds-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.patient-detail__value {
-  margin: 0;
-  @include type.type-style("body-short-01");
-  color: var(--cds-text-primary);
 }
 
 @media (max-width: 960px) {
