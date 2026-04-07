@@ -1,9 +1,17 @@
+import { type ReactNode } from "react";
+import {
+  type CarbonIconType,
+  PendingFilled,
+  Misuse,
+  CheckmarkFilled,
+  TimeFilled,
+} from "@carbon/icons-react";
+
 export type AppointmentStatus =
-  | "Active"
   | "Scheduled"
-  | "Completed"
   | "Pending"
-  | "Cancelled";
+  | "Cancelled"
+  | "Discharged";
 
 export type Appointment = {
   hn: string;
@@ -21,7 +29,7 @@ export const appointments: Appointment[] = [
     phone: "081-234-5678",
     careProvider: "Dr. Apinya Wongkul",
     episodeId: "EP-2024-0088",
-    status: "Active",
+    status: "Discharged",
   },
   {
     hn: "HN-100388",
@@ -37,7 +45,7 @@ export const appointments: Appointment[] = [
     phone: "062-789-0123",
     careProvider: "Dr. Apinya Wongkul",
     episodeId: "EP-2024-0075",
-    status: "Completed",
+    status: "Discharged",
   },
   {
     hn: "HN-100512",
@@ -69,7 +77,7 @@ export const appointments: Appointment[] = [
     phone: "085-012-3456",
     careProvider: "Dr. Apinya Wongkul",
     episodeId: "EP-2024-0079",
-    status: "Active",
+    status: "Discharged",
   },
 ];
 
@@ -81,6 +89,48 @@ export const APPOINTMENT_HEADERS = [
   "Episode ID",
   "Status",
 ];
+
+const STATUS_CONFIG: Record<
+  AppointmentStatus,
+  { Icon: CarbonIconType; color: string; label: string }
+> = {
+  Scheduled: {
+    Icon: TimeFilled,
+    color: "var(--cds-support-warning)",
+    label: "Scheduled",
+  },
+  Pending: {
+    Icon: PendingFilled,
+    color: "var(--cds-support-warning)",
+    label: "Pending",
+  },
+  Cancelled: {
+    Icon: Misuse,
+    color: "var(--cds-support-error)",
+    label: "Cancelled",
+  },
+  Discharged: {
+    Icon: CheckmarkFilled,
+    color: "var(--cds-support-success)",
+    label: "Discharged",
+  },
+};
+
+export function formatAppointmentStatus(status: AppointmentStatus): ReactNode {
+  const { Icon, color, label } = STATUS_CONFIG[status];
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "var(--cds-spacing-03)",
+      }}
+    >
+      <Icon style={{ fill: color }} />
+      {label}
+    </span>
+  );
+}
 
 export function filterAppointments(
   data: Appointment[],
@@ -95,13 +145,15 @@ export function filterAppointments(
   );
 }
 
-export function createAppointmentTableRows(data: Appointment[]): string[][] {
+export function createAppointmentTableRows(
+  data: Appointment[],
+): (string | ReactNode)[][] {
   return data.map((a) => [
     a.hn,
     a.name,
     a.phone,
     a.careProvider,
     a.episodeId,
-    a.status,
+    formatAppointmentStatus(a.status),
   ]);
 }

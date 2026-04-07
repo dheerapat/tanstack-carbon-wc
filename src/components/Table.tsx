@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react";
 import "@carbon/web-components/es/components/data-table/index.js";
 
-type TableCellValue = string | number;
+type TableCellValue = string | number | ReactNode;
 
 type TableData = {
   headers: TableCellValue[];

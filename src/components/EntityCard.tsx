@@ -23,7 +23,7 @@ export function EntityCard({ icon, fields }: EntityCardProps) {
 
   return (
     <div className="entity-card">
-      <cds-grid narrow="">
+      <cds-grid align="start" full-width>
         <cds-column lg={String(iconCols)}>{icon}</cds-column>
         {fields.map(({ label, value }, i) => (
           <cds-column
