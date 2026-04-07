@@ -54,6 +54,7 @@ declare module "react" {
       "cds-select-item": CarbonEl;
       "cds-textarea": CarbonEl;
       "cds-tile": CarbonEl;
+      "cds-clickable-tile": CarbonEl;
       "cds-link": CarbonEl;
       "cds-button-set": CarbonEl;
       "cds-heading": CarbonEl;
