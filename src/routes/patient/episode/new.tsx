@@ -8,6 +8,9 @@ import "@carbon/web-components/es/components/textarea/index.js";
 import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
 import { addEpisode, CARE_PROVIDERS } from "#/features/patientEpisode";
+import { filterPatients, formatSex, formatAge } from "#/features/patientSearch";
+import { EntityCard } from "#/components/EntityCard";
+import { User } from "@carbon/pictograms-react";
 import "#/routes/style/patient.scss";
 
 type InputEl = HTMLElement & { value?: string };
@@ -28,6 +31,8 @@ export const Route = createFileRoute("/patient/episode/new")({
 function RouteComponent() {
   const { hn } = Route.useSearch();
   const navigate = Route.useNavigate();
+
+  const patient = filterPatients({ hn })[0];
 
   const dateRef = useRef<InputEl>(null);
   const timeRef = useRef<InputEl>(null);
@@ -66,9 +71,24 @@ function RouteComponent() {
     navigate({ to: "/patient/detail", search: { hn } });
   }
 
+  const entityCardFields = patient
+    ? [
+        { label: "HN", value: patient.hn },
+        {
+          label: "Full Name",
+          value: [patient.name, patient.surname].filter(Boolean).join(" "),
+        },
+        { label: "Date of Birth", value: patient.dob },
+        { label: "Age", value: formatAge(patient.dob) },
+        { label: "Sex", value: formatSex(patient.sex, true) },
+      ]
+    : [];
+
   return (
     <>
       <cds-heading>New Episode</cds-heading>
+      <br />
+      {patient && <EntityCard icon={<User />} fields={entityCardFields} />}
       <br />
       <div className="patient-form">
         <cds-form
