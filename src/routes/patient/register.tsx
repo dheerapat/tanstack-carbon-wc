@@ -74,7 +74,11 @@ function RouteComponent() {
       <cds-heading>Register Patient</cds-heading>
       <br></br>
       <div className="patient-form">
-        <cds-form>
+        <cds-form
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.key === "Enter") handleRegister();
+          }}
+        >
           <cds-grid>
             <cds-column lg="8">
               <cds-stack gap="5">

@@ -3,9 +3,17 @@ export type EpisodeStatus = "scheduled" | "arrived" | "discharged";
 export type Episode = {
   id: string;
   date: string;
+  time?: string;
   status: EpisodeStatus;
   careProvider: string;
+  note?: string;
 };
+
+export const CARE_PROVIDERS = [
+  "Dr. Wanchai Sombat",
+  "Dr. Pimchanok Ruangrit",
+  "Dr. Thanakorn Yodrak",
+] as const;
 
 const episodesByHn: Record<string, Episode[]> = {
   "HN-100421": [
@@ -109,4 +117,25 @@ export function createEpisodeTableRows(
     formatStatus(episode.status),
     episode.careProvider,
   ]);
+}
+
+let episodeCounter = 200;
+
+export function addEpisode(
+  hn: string,
+  fields: { date: string; time: string; careProvider: string; note: string },
+): Episode {
+  const year = fields.date.split("/")[2] ?? new Date().getFullYear();
+  const id = `EP-${year}-${String(++episodeCounter).padStart(3, "0")}`;
+  const episode: Episode = {
+    id,
+    date: fields.date,
+    time: fields.time,
+    status: "scheduled",
+    careProvider: fields.careProvider,
+    note: fields.note || undefined,
+  };
+  if (!episodesByHn[hn]) episodesByHn[hn] = [];
+  episodesByHn[hn].push(episode);
+  return episode;
 }

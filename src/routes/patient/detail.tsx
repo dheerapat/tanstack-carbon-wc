@@ -64,7 +64,11 @@ function RouteComponent() {
         title="All Episodes"
         toolbar={{
           actions: (
-            <cds-button>
+            <cds-button
+              onClick={() =>
+                navigate({ to: "/patient/episode/new", search: { hn } })
+              }
+            >
               New Episode
               <Add slot="icon" />
             </cds-button>

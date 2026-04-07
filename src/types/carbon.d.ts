@@ -57,6 +57,8 @@ declare module "react" {
       "cds-link": CarbonEl;
       "cds-button-set": CarbonEl;
       "cds-heading": CarbonEl;
+      "cds-time-picker": CarbonEl;
+      "cds-time-picker-select": CarbonEl;
     }
   }
 }
