@@ -4,11 +4,11 @@ import "@carbon/web-components/es/components/date-picker/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
 import { Table } from "#/components/Table";
 import {
-  appointments,
+  getAllEpisodes,
   APPOINTMENT_HEADERS,
   createAppointmentTableRows,
-  filterAppointments,
-} from "#/features/appointment";
+  filterEpisodes,
+} from "#/features/patientEpisode";
 
 export const Route = createFileRoute("/appointment/")({
   component: RouteComponent,
@@ -24,7 +24,7 @@ function RouteComponent() {
 
   const appointmentTable = {
     headers: APPOINTMENT_HEADERS,
-    rows: createAppointmentTableRows(filterAppointments(appointments, query)),
+    rows: createAppointmentTableRows(filterEpisodes(getAllEpisodes(), query)),
   };
 
   return (

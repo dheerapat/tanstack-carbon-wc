@@ -58,7 +58,7 @@ function RouteComponent() {
       <br></br>
       <Table
         table={{
-          headers: ["Episode ID", "Date", "Status", "Care Provider"],
+          headers: ["Episode ID", "Date", "Care Provider", "Status"],
           rows: createEpisodeTableRows(getEpisodesByHn(patient.hn)),
         }}
         title="All Episodes"

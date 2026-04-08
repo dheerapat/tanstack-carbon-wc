@@ -21,8 +21,22 @@ textarea {
   font-family: inherit;
 }
 
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .app-content {
   margin: var(--cds-spacing-10) var(--cds-spacing-09) 0;
+}
+
+.app-footer {
+  margin-top: auto;
+  text-align: center;
+  padding: var(--cds-spacing-07) 0;
+  color: var(--cds-text-secondary);
+  @include type-style("label-01");
 }
 
 .navbar-user-meta {

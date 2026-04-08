@@ -11,11 +11,14 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <>
+    <div className="app-shell">
       <Navbar />
       <main className="app-content">
         <Outlet />
       </main>
+      <footer className="app-footer">
+        Project Nutrix by Auto Medica Labs.
+      </footer>
       <TanStackDevtools
         config={{
           position: "bottom-right",
@@ -27,6 +30,6 @@ function RootComponent() {
           },
         ]}
       />
-    </>
+    </div>
   );
 }
