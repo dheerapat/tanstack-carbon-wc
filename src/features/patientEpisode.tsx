@@ -107,6 +107,16 @@ export function getEpisodesByHn(hn: string): Episode[] {
   return episodesByHn[hn] ?? [];
 }
 
+export function getEpisodeById(
+  id: string,
+): { episode: Episode; hn: string } | undefined {
+  for (const [hn, episodes] of Object.entries(episodesByHn)) {
+    const episode = episodes.find((ep) => ep.id === id);
+    if (episode) return { episode, hn };
+  }
+  return undefined;
+}
+
 export function getAllEpisodes(): (Episode & { hn: string })[] {
   const all: (Episode & { hn: string })[] = [];
   for (const [hn, episodes] of Object.entries(episodesByHn)) {
@@ -230,10 +240,12 @@ export function createAppointmentTableRows(
 export type EpisodeRowAction = {
   label: string;
   Icon: CarbonIconType;
+  navigateTo?: { to: "/episode/$episodeId"; params: { episodeId: string } };
 };
 
 export function getEpisodeRowActions(
   status: EpisodeStatus,
+  episodeId: string,
 ): EpisodeRowAction[] | null {
   switch (status) {
     case "discharged":
@@ -242,7 +254,7 @@ export function getEpisodeRowActions(
       return [{ label: "Mark Pending", Icon: UserFollow }];
     case "pending":
       return [
-        { label: "Encounter", Icon: DocumentAdd },
+        { label: "Episode", Icon: DocumentAdd, navigateTo: { to: "/episode/$episodeId", params: { episodeId } } },
         { label: "EMR", Icon: Document },
       ];
     case "cancelled":

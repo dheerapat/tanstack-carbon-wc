@@ -70,7 +70,7 @@ function RouteComponent() {
           const episodeId = String(row[0]);
           const status = statusMap.get(episodeId);
           if (!status) return null;
-          const actions = getEpisodeRowActions(status);
+          const actions = getEpisodeRowActions(status, episodeId);
           if (!actions) return null;
           return (
             <span
@@ -79,13 +79,16 @@ function RouteComponent() {
                 gap: "var(--cds-spacing-03)",
               }}
             >
-              {actions.map(({ label, Icon }) => (
+              {actions.map(({ label, Icon, navigateTo }) => (
                 <cds-button
                   key={label}
                   kind="ghost"
                   tooltip-text={label}
                   tooltip-position="right"
                   tooltip-alignment="center"
+                  onClick={() => {
+                    if (navigateTo) navigate(navigateTo);
+                  }}
                 >
                   <Icon slot="icon" />
                 </cds-button>

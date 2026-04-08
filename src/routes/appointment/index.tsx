@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/date-picker/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
 import { Table } from "#/components/Table";
@@ -17,6 +17,7 @@ export const Route = createFileRoute("/appointment/")({
 
 function RouteComponent() {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const today = new Date();
   const formattedToday = `${String(today.getDate()).padStart(2, "0")}/${String(
@@ -60,7 +61,7 @@ function RouteComponent() {
           const episodeId = String(row[4]);
           const status = statusMap.get(episodeId);
           if (!status) return null;
-          const actions = getEpisodeRowActions(status);
+          const actions = getEpisodeRowActions(status, episodeId);
           if (!actions) return null;
           return (
             <span
@@ -69,13 +70,16 @@ function RouteComponent() {
                 gap: "var(--cds-spacing-03)",
               }}
             >
-              {actions.map(({ label, Icon }) => (
+              {actions.map(({ label, Icon, navigateTo }) => (
                 <cds-button
                   key={label}
                   kind="ghost"
                   tooltip-text={label}
                   tooltip-position="right"
                   tooltip-alignment="center"
+                  onClick={() => {
+                    if (navigateTo) navigate(navigateTo);
+                  }}
                 >
                   <Icon slot="icon" />
                 </cds-button>
