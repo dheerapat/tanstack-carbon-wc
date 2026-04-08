@@ -8,6 +8,7 @@ import {
   APPOINTMENT_HEADERS,
   createAppointmentTableRows,
   filterEpisodes,
+  getEpisodeRowActions,
 } from "#/features/patientEpisode";
 
 export const Route = createFileRoute("/appointment/")({
@@ -22,9 +23,12 @@ function RouteComponent() {
     today.getMonth() + 1,
   ).padStart(2, "0")}/${today.getFullYear()}`;
 
+  const filtered = filterEpisodes(getAllEpisodes(), query);
+  const statusMap = new Map(filtered.map((ep) => [ep.id, ep.status]));
+
   const appointmentTable = {
     headers: APPOINTMENT_HEADERS,
-    rows: createAppointmentTableRows(filterEpisodes(getAllEpisodes(), query)),
+    rows: createAppointmentTableRows(filtered),
   };
 
   return (
@@ -51,6 +55,33 @@ function RouteComponent() {
         toolbar={{
           searchPlaceholder: "Search appointments",
           onSearch: setQuery,
+        }}
+        rowAction={(row) => {
+          const episodeId = String(row[4]);
+          const status = statusMap.get(episodeId);
+          if (!status) return null;
+          const actions = getEpisodeRowActions(status);
+          if (!actions) return null;
+          return (
+            <span
+              style={{
+                display: "inline-flex",
+                gap: "var(--cds-spacing-03)",
+              }}
+            >
+              {actions.map(({ label, Icon }) => (
+                <cds-button
+                  key={label}
+                  kind="ghost"
+                  tooltip-text={label}
+                  tooltip-position="right"
+                  tooltip-alignment="center"
+                >
+                  <Icon slot="icon" />
+                </cds-button>
+              ))}
+            </span>
+          );
         }}
       />
     </>

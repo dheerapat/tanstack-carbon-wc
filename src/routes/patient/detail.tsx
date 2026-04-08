@@ -6,6 +6,7 @@ import { filterPatients, formatSex, formatAge } from "#/features/patientSearch";
 import {
   createEpisodeTableRows,
   getEpisodesByHn,
+  getEpisodeRowActions,
 } from "#/features/patientEpisode";
 import { Table } from "#/components/Table";
 import { EntityCard } from "#/components/EntityCard";
@@ -50,6 +51,9 @@ function RouteComponent() {
     { label: "Sex", value: formatSex(patient.sex, true) },
   ];
 
+  const episodes = getEpisodesByHn(patient.hn);
+  const statusMap = new Map(episodes.map((ep) => [ep.id, ep.status]));
+
   return (
     <>
       <cds-heading>Patient Info</cds-heading>
@@ -59,9 +63,36 @@ function RouteComponent() {
       <Table
         table={{
           headers: ["Episode ID", "Date", "Care Provider", "Status"],
-          rows: createEpisodeTableRows(getEpisodesByHn(patient.hn)),
+          rows: createEpisodeTableRows(episodes),
         }}
         title="All Episodes"
+        rowAction={(row) => {
+          const episodeId = String(row[0]);
+          const status = statusMap.get(episodeId);
+          if (!status) return null;
+          const actions = getEpisodeRowActions(status);
+          if (!actions) return null;
+          return (
+            <span
+              style={{
+                display: "inline-flex",
+                gap: "var(--cds-spacing-03)",
+              }}
+            >
+              {actions.map(({ label, Icon }) => (
+                <cds-button
+                  key={label}
+                  kind="ghost"
+                  tooltip-text={label}
+                  tooltip-position="right"
+                  tooltip-alignment="center"
+                >
+                  <Icon slot="icon" />
+                </cds-button>
+              ))}
+            </span>
+          );
+        }}
         toolbar={{
           actions: (
             <cds-button

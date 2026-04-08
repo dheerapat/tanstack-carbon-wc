@@ -5,6 +5,9 @@ import {
   TimeFilled,
   PendingFilled,
   Misuse,
+  Document,
+  UserFollow,
+  DocumentAdd,
 } from "@carbon/icons-react";
 import { patients } from "#/features/patientSearch";
 
@@ -192,9 +195,7 @@ export function filterEpisodes(
   if (!q) return episodes;
   return episodes.filter((ep) => {
     const patient = patients.find((p) => p.hn === ep.hn);
-    const fullName = patient
-      ? `${patient.name} ${patient.surname}`
-      : "";
+    const fullName = patient ? `${patient.name} ${patient.surname}` : "";
     return [
       ep.hn,
       fullName,
@@ -214,9 +215,7 @@ export function createAppointmentTableRows(
   );
   return sorted.map((ep) => {
     const patient = patients.find((p) => p.hn === ep.hn);
-    const fullName = patient
-      ? `${patient.name} ${patient.surname}`
-      : "";
+    const fullName = patient ? `${patient.name} ${patient.surname}` : "";
     return [
       ep.hn,
       fullName,
@@ -226,6 +225,29 @@ export function createAppointmentTableRows(
       formatEpisodeStatus(ep.status),
     ];
   });
+}
+
+export type EpisodeRowAction = {
+  label: string;
+  Icon: CarbonIconType;
+};
+
+export function getEpisodeRowActions(
+  status: EpisodeStatus,
+): EpisodeRowAction[] | null {
+  switch (status) {
+    case "discharged":
+      return [{ label: "EMR", Icon: Document }];
+    case "scheduled":
+      return [{ label: "Mark Pending", Icon: UserFollow }];
+    case "pending":
+      return [
+        { label: "Encounter", Icon: DocumentAdd },
+        { label: "EMR", Icon: Document },
+      ];
+    case "cancelled":
+      return null;
+  }
 }
 
 let episodeCounter = 200;
