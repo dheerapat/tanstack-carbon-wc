@@ -6,6 +6,7 @@ import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/text-input/index.js";
 import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
+import "@carbon/web-components/es/components/layer/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
 import "@carbon/web-components/es/components/file-uploader/index.js";
 import "@carbon/web-components/es/components/stack/index.js";
@@ -79,6 +80,7 @@ function RouteComponent() {
             if (e.key === "Enter") handleRegister();
           }}
         >
+          <cds-layer level="1">
           <cds-grid>
             <cds-column lg="8">
               <cds-stack gap="5">
@@ -169,6 +171,7 @@ function RouteComponent() {
               </cds-stack>
             </cds-column>
           </cds-grid>
+          </cds-layer>
           <cds-button-set>
             <cds-button kind="secondary" onClick={handleCancel}>
               Cancel

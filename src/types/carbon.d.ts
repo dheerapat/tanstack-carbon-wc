@@ -57,6 +57,7 @@ declare module "react" {
       "cds-clickable-tile": CarbonEl;
       "cds-link": CarbonEl;
       "cds-button-set": CarbonEl;
+      "cds-layer": CarbonEl;
       "cds-heading": CarbonEl;
       "cds-time-picker": CarbonEl;
       "cds-time-picker-select": CarbonEl;

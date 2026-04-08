@@ -6,6 +6,7 @@ import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/text-input/index.js";
 import "@carbon/web-components/es/components/radio-button/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
+import "@carbon/web-components/es/components/layer/index.js";
 import { normalizePatientSearch } from "#/features/patientSearch";
 import "#/routes/style/patient.scss";
 
@@ -73,6 +74,7 @@ function RouteComponent() {
             if (e.key === "Enter") handleSearch();
           }}
         >
+          <cds-layer level="1">
           <cds-grid>
             <cds-column lg="8">
               <cds-stack gap="3">
@@ -142,6 +144,7 @@ function RouteComponent() {
               </cds-stack>
             </cds-column>
           </cds-grid>
+          </cds-layer>
           <cds-button-set>
             <cds-button kind="secondary" onClick={handleReset}>
               Clear

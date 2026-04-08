@@ -7,6 +7,7 @@ import "@carbon/web-components/es/components/select/index.js";
 import "@carbon/web-components/es/components/textarea/index.js";
 import "@carbon/web-components/es/components/form/index.js";
 import "@carbon/web-components/es/components/grid/index.js";
+import "@carbon/web-components/es/components/layer/index.js";
 import { addEpisode, CARE_PROVIDERS } from "#/features/patientEpisode";
 import { filterPatients, formatSex, formatAge } from "#/features/patientSearch";
 import { EntityCard } from "#/components/EntityCard";
@@ -100,6 +101,7 @@ function RouteComponent() {
               handleSubmit();
           }}
         >
+          <cds-layer level="1">
           <cds-grid>
             <cds-column lg="8">
               <cds-stack gap="5">
@@ -156,8 +158,7 @@ function RouteComponent() {
                   ref={noteRef}
                   label="Note"
                   name="note"
-                  helper-text="Additional notes for this episode"
-                  placeholder=""
+                  placeholder="Additional notes for this episode"
                   rows="6"
                   enable-counter=""
                   max-count="500"
@@ -165,6 +166,7 @@ function RouteComponent() {
               </cds-form-item>
             </cds-column>
           </cds-grid>
+          </cds-layer>
 
           <cds-button-set>
             <cds-button kind="secondary" onClick={handleCancel}>
