@@ -2,7 +2,8 @@ import { createFileRoute, useRouter } from "@tanstack/react-router";
 import "@carbon/web-components/es/components/tile/index.js";
 import "@carbon/web-components/es/components/heading/index.js";
 import "@carbon/web-components/es/components/link/index.js";
-import { Launch } from "@carbon/icons-react";
+import "@carbon/web-components/es/components/button/index.js";
+import { Launch, Add } from "@carbon/icons-react";
 import { User } from "@carbon/pictograms-react";
 import {
   filterPatients,
@@ -72,6 +73,14 @@ function RouteComponent() {
           rows: encounterRows,
         }}
         title="Encounters"
+        toolbar={{
+          actions: (
+            <cds-button>
+              New Encounter
+              <Add slot="icon" />
+            </cds-button>
+          ),
+        }}
         rowAction={(row) => {
           const encounterId = String(row[0]);
           const href = router.buildLocation({

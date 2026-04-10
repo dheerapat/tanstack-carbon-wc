@@ -6,8 +6,8 @@ import {
   PendingFilled,
   Misuse,
   Document,
-  UserFollow,
-  DocumentAdd,
+  Edit,
+  Login,
 } from "@carbon/icons-react";
 import { patients } from "#/features/patientSearch";
 
@@ -240,7 +240,7 @@ export function createAppointmentTableRows(
 export type EpisodeRowAction = {
   label: string;
   Icon: CarbonIconType;
-  navigateTo?: { to: "/episode/$episodeId"; params: { episodeId: string } };
+  navigateTo?: { to: "/episode/$episodeId"; params: { episodeId: string } } | { to: "/emr/$episodeId"; params: { episodeId: string } };
 };
 
 export function getEpisodeRowActions(
@@ -249,13 +249,17 @@ export function getEpisodeRowActions(
 ): EpisodeRowAction[] | null {
   switch (status) {
     case "discharged":
-      return [{ label: "EMR", Icon: Document }];
+      return [{ label: "View EMR", Icon: Document, navigateTo: { to: "/emr/$episodeId", params: { episodeId } } }];
     case "scheduled":
-      return [{ label: "Mark Pending", Icon: UserFollow }];
+      return [{ label: "Patient Arrive", Icon: Login }];
     case "pending":
       return [
-        { label: "Episode", Icon: DocumentAdd, navigateTo: { to: "/episode/$episodeId", params: { episodeId } } },
-        { label: "EMR", Icon: Document },
+        {
+          label: "Manage Episode",
+          Icon: Edit,
+          navigateTo: { to: "/episode/$episodeId", params: { episodeId } },
+        },
+        { label: "View EMR", Icon: Document, navigateTo: { to: "/emr/$episodeId", params: { episodeId } } },
       ];
     case "cancelled":
       return null;

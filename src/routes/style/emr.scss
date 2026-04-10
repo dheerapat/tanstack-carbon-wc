@@ -1,0 +1,29 @@
+@use "@carbon/styles/scss/type";
+
+.emr-layout {
+  display: flex;
+  padding: var(--cds-spacing-07) 0;
+  gap: var(--cds-spacing-05);
+}
+
+.emr-layout cds-tree-view {
+  width: 16rem;
+  flex-shrink: 0;
+}
+
+.emr-layout__content {
+  flex: 1;
+}
+
+.emr-layout__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--cds-spacing-09);
+
+  p {
+    @include type.type-style("body-short-01");
+    color: var(--cds-text-secondary);
+  }
+}

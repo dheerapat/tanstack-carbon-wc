@@ -23,7 +23,7 @@ function RouteComponent() {
 
   return (
     <>
-      <cds-heading>Encounter Info</cds-heading>
+      <cds-heading>Encounter Detail</cds-heading>
       <br></br>
       <cds-tile>
         <cds-stack gap="5">

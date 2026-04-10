@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PatientRouteRouteImport } from './routes/patient/route'
 import { Route as EpisodeRouteRouteImport } from './routes/episode/route'
 import { Route as EncounterRouteRouteImport } from './routes/encounter/route'
+import { Route as EmrRouteRouteImport } from './routes/emr/route'
 import { Route as AppointmentRouteRouteImport } from './routes/appointment/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PatientIndexRouteImport } from './routes/patient/index'
@@ -21,6 +22,7 @@ import { Route as PatientRegisterRouteImport } from './routes/patient/register'
 import { Route as PatientDetailRouteImport } from './routes/patient/detail'
 import { Route as EpisodeEpisodeIdRouteImport } from './routes/episode/$episodeId'
 import { Route as EncounterEncounterIdRouteImport } from './routes/encounter/$encounterId'
+import { Route as EmrEpisodeIdRouteImport } from './routes/emr/$episodeId'
 import { Route as PatientEpisodeRouteRouteImport } from './routes/patient/episode/route'
 import { Route as PatientEpisodeNewRouteImport } from './routes/patient/episode/new'
 
@@ -37,6 +39,11 @@ const EpisodeRouteRoute = EpisodeRouteRouteImport.update({
 const EncounterRouteRoute = EncounterRouteRouteImport.update({
   id: '/encounter',
   path: '/encounter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmrRouteRoute = EmrRouteRouteImport.update({
+  id: '/emr',
+  path: '/emr',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppointmentRouteRoute = AppointmentRouteRouteImport.update({
@@ -84,6 +91,11 @@ const EncounterEncounterIdRoute = EncounterEncounterIdRouteImport.update({
   path: '/$encounterId',
   getParentRoute: () => EncounterRouteRoute,
 } as any)
+const EmrEpisodeIdRoute = EmrEpisodeIdRouteImport.update({
+  id: '/$episodeId',
+  path: '/$episodeId',
+  getParentRoute: () => EmrRouteRoute,
+} as any)
 const PatientEpisodeRouteRoute = PatientEpisodeRouteRouteImport.update({
   id: '/episode',
   path: '/episode',
@@ -98,10 +110,12 @@ const PatientEpisodeNewRoute = PatientEpisodeNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/appointment': typeof AppointmentRouteRouteWithChildren
+  '/emr': typeof EmrRouteRouteWithChildren
   '/encounter': typeof EncounterRouteRouteWithChildren
   '/episode': typeof EpisodeRouteRouteWithChildren
   '/patient': typeof PatientRouteRouteWithChildren
   '/patient/episode': typeof PatientEpisodeRouteRouteWithChildren
+  '/emr/$episodeId': typeof EmrEpisodeIdRoute
   '/encounter/$encounterId': typeof EncounterEncounterIdRoute
   '/episode/$episodeId': typeof EpisodeEpisodeIdRoute
   '/patient/detail': typeof PatientDetailRoute
@@ -113,9 +127,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/emr': typeof EmrRouteRouteWithChildren
   '/encounter': typeof EncounterRouteRouteWithChildren
   '/episode': typeof EpisodeRouteRouteWithChildren
   '/patient/episode': typeof PatientEpisodeRouteRouteWithChildren
+  '/emr/$episodeId': typeof EmrEpisodeIdRoute
   '/encounter/$encounterId': typeof EncounterEncounterIdRoute
   '/episode/$episodeId': typeof EpisodeEpisodeIdRoute
   '/patient/detail': typeof PatientDetailRoute
@@ -129,10 +145,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/appointment': typeof AppointmentRouteRouteWithChildren
+  '/emr': typeof EmrRouteRouteWithChildren
   '/encounter': typeof EncounterRouteRouteWithChildren
   '/episode': typeof EpisodeRouteRouteWithChildren
   '/patient': typeof PatientRouteRouteWithChildren
   '/patient/episode': typeof PatientEpisodeRouteRouteWithChildren
+  '/emr/$episodeId': typeof EmrEpisodeIdRoute
   '/encounter/$encounterId': typeof EncounterEncounterIdRoute
   '/episode/$episodeId': typeof EpisodeEpisodeIdRoute
   '/patient/detail': typeof PatientDetailRoute
@@ -147,10 +165,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/appointment'
+    | '/emr'
     | '/encounter'
     | '/episode'
     | '/patient'
     | '/patient/episode'
+    | '/emr/$episodeId'
     | '/encounter/$encounterId'
     | '/episode/$episodeId'
     | '/patient/detail'
@@ -162,9 +182,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/emr'
     | '/encounter'
     | '/episode'
     | '/patient/episode'
+    | '/emr/$episodeId'
     | '/encounter/$encounterId'
     | '/episode/$episodeId'
     | '/patient/detail'
@@ -177,10 +199,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/appointment'
+    | '/emr'
     | '/encounter'
     | '/episode'
     | '/patient'
     | '/patient/episode'
+    | '/emr/$episodeId'
     | '/encounter/$encounterId'
     | '/episode/$episodeId'
     | '/patient/detail'
@@ -194,6 +218,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppointmentRouteRoute: typeof AppointmentRouteRouteWithChildren
+  EmrRouteRoute: typeof EmrRouteRouteWithChildren
   EncounterRouteRoute: typeof EncounterRouteRouteWithChildren
   EpisodeRouteRoute: typeof EpisodeRouteRouteWithChildren
   PatientRouteRoute: typeof PatientRouteRouteWithChildren
@@ -220,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/encounter'
       fullPath: '/encounter'
       preLoaderRoute: typeof EncounterRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emr': {
+      id: '/emr'
+      path: '/emr'
+      fullPath: '/emr'
+      preLoaderRoute: typeof EmrRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/appointment': {
@@ -285,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EncounterEncounterIdRouteImport
       parentRoute: typeof EncounterRouteRoute
     }
+    '/emr/$episodeId': {
+      id: '/emr/$episodeId'
+      path: '/$episodeId'
+      fullPath: '/emr/$episodeId'
+      preLoaderRoute: typeof EmrEpisodeIdRouteImport
+      parentRoute: typeof EmrRouteRoute
+    }
     '/patient/episode': {
       id: '/patient/episode'
       path: '/episode'
@@ -312,6 +351,18 @@ const AppointmentRouteRouteChildren: AppointmentRouteRouteChildren = {
 
 const AppointmentRouteRouteWithChildren =
   AppointmentRouteRoute._addFileChildren(AppointmentRouteRouteChildren)
+
+interface EmrRouteRouteChildren {
+  EmrEpisodeIdRoute: typeof EmrEpisodeIdRoute
+}
+
+const EmrRouteRouteChildren: EmrRouteRouteChildren = {
+  EmrEpisodeIdRoute: EmrEpisodeIdRoute,
+}
+
+const EmrRouteRouteWithChildren = EmrRouteRoute._addFileChildren(
+  EmrRouteRouteChildren,
+)
 
 interface EncounterRouteRouteChildren {
   EncounterEncounterIdRoute: typeof EncounterEncounterIdRoute
@@ -371,6 +422,7 @@ const PatientRouteRouteWithChildren = PatientRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppointmentRouteRoute: AppointmentRouteRouteWithChildren,
+  EmrRouteRoute: EmrRouteRouteWithChildren,
   EncounterRouteRoute: EncounterRouteRouteWithChildren,
   EpisodeRouteRoute: EpisodeRouteRouteWithChildren,
   PatientRouteRoute: PatientRouteRouteWithChildren,

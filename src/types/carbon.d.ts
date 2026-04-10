@@ -61,6 +61,8 @@ declare module "react" {
       "cds-heading": CarbonEl;
       "cds-time-picker": CarbonEl;
       "cds-time-picker-select": CarbonEl;
+      "cds-tree-view": CarbonEl;
+      "cds-tree-node": CarbonEl;
     }
   }
 }
